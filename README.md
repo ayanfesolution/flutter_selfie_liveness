@@ -90,7 +90,7 @@ class _ElatechLiveliness extends State<ElatechLiveliness> {
                   await FileImage(File(value)).evict();
                   setState(() {});
                 },
-                child: const Text("Click Me"))
+                child: const Text("Detect Liveness"))
           ]),
         ),
       ),
