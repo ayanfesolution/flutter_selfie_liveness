@@ -2,6 +2,9 @@
 
 A new Flutter Plugin for detecting liveness.
 
+
+
+
 ## Using
 
 
@@ -22,10 +25,33 @@ SelfieLiveness.detectLiveness(
 ```
 
 
-## Example
+## IOS Requirements
+
+update your ios/Runner/info.plist
+
+```
+<key>NSCameraUsageDescription</key>
+<string>Allow Camera Permission</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Alllow photo library to store your captured image</string>
 
 
 ```
+
+and ios/Podfile to
+
+```
+platform :ios, '13.0'
+
+```
+
+ 
+
+
+## Example
+
+
+```dart
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:selfie_liveness/selfie_liveness.dart';
