@@ -43,6 +43,8 @@ and ios/Podfile to
 ```
 platform :ios, '13.0'
 
+run pod install
+
 ```
 
  

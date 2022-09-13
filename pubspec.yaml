@@ -1,7 +1,7 @@
 name: selfie_liveness
-description: A new Flutter project.
+description: A flutter liveness camera plugin for detecting fraud or detecting real person selfie 
 version: 0.0.1
-homepage:
+homepage: https://github.com/ElatechLimited/flutter_selfie_liveness
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
