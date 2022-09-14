@@ -28,8 +28,8 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     var state : Int = 0
    // var Open_threshold : CGFloat = 0.85
    // var Close_threshold : CGFloat = 0.20
-    var Open_threshold : CGFloat = 0.8
-    var Close_threshold : CGFloat = 0.35
+    var Open_threshold : CGFloat = 0.85
+    var Close_threshold : CGFloat = 0.15
     var isEyeBlinked : Bool = false
     var mainBuffer : CMSampleBuffer?
     var overlayCircle : UIView = UIView()
