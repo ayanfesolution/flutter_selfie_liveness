@@ -29,32 +29,31 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
    // var Open_threshold : CGFloat = 0.85
    // var Close_threshold : CGFloat = 0.20
     var Open_threshold : CGFloat = 0.85
+    var Smile_threshold : CGFloat = 0.85
     var Close_threshold : CGFloat = 0.15
     var isEyeBlinked : Bool = false
     var mainBuffer : CMSampleBuffer?
     var overlayCircle : UIView = UIView()
-    var backButton : UIButton = UIButton()
     var lblEyeBlink : UILabel = UILabel()
-    //var bgImageView : UIImageView = UIImageView()
     var labelStatus : UILabel = UILabel()
+    var assetPath : String? = ""
+    var poweredBy : String? = ""
+    
     
     var dismissDelegate: DismissProtocol!
 
     
     let shape = CAShapeLayer()
-    var borderColor : UIColor = UIColor.red
+    //i edited from red to white
+    var borderColor : UIColor = UIColor.white
+    
+    
+  
 
     override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.async { [self] in
-                    self.backButton.frame = CGRect(x: self.view.frame.width - 50, y: 30, width: 40, height: 40)
-            self.backButton.titleLabel?.font = UIFont.init(name: "GillSans", size: 20)
-                    self.backButton.setTitle("X", for: .normal)
-//                    self.backButton.setImage(UIImage.init(named: "close-button.png"), for: .normal)
-            self.backButton.addTarget(self, action: #selector(self.backButtonPressed(sender:)), for: .touchUpInside)
-            self.overlayCircle.frame = CGRect(x: (self.view.frame.width/2) - ((self.view.frame.width/1.3)/2), y: (self.view.frame.height/2) - ((self.view.frame.width)/2), width: (self.view.frame.width/1.3), height: (self.view.frame.width))
-//            self.overlayCircle.layer.cornerRadius = self.overlayCircle.frame.height/2
-            
+           self.overlayCircle.frame = CGRect(x: (self.view.frame.width/2) - ((self.view.frame.width/1.3)/2), y: (self.view.frame.height/2) - ((self.view.frame.width)/2), width: (self.view.frame.width/1.3), height: (self.view.frame.width))
             let gradient = CAGradientLayer()
             let size = CGSize(width: (self.view.frame.width/1.3), height: (self.view.frame.width))
             let rect = CGRect(origin: .zero, size: size)
@@ -62,7 +61,8 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             gradient.colors = [UIColor.blue.cgColor, UIColor.green.cgColor]
 //            let shape = CAShapeLayer()
             shape.lineWidth = 5
-            shape.backgroundColor = UIColor.red.cgColor
+            //i edited fromw red to white
+            shape.backgroundColor = UIColor.white.cgColor
             shape.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: (self.view.frame.width/1.3), height: (self.view.frame.width))).cgPath
             shape.strokeColor = borderColor.cgColor
             shape.fillColor = UIColor.clear.cgColor
@@ -209,11 +209,6 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         self.previewLayer.videoGravity = .resizeAspectFill
         self.view.layer.addSublayer(self.previewLayer)
         self.previewLayer.frame = self.view.frame
-  //      self.previewLayer.addSublayer(self.bgImageView.layer)
-        
-//        self.previewLayer.addSublayer(self.labelStatus.layer)
-//        self.previewLayer.addSublayer(self.lblEyeBlink.layer)
-//        self.previewLayer.addSublayer(self.backButton.layer)
         
     
         
@@ -224,9 +219,43 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         customeView.layer.addSublayer(self.labelStatus.layer)
         customeView.layer.addSublayer(self.lblEyeBlink.layer)
-        customeView.layer.addSublayer(self.backButton.layer)
-
-        self.view.addSubview(self.backButton)
+       //customeView.layer.addSublayer(self.backButton.layer)
+         
+    
+      //logo of your company
+        let logoPath = Bundle.main.path(forResource: assetPath, ofType: nil)!
+        let logo = UIImageView(image: UIImage(contentsOfFile: logoPath))
+        logo.frame =  CGRect(x: self.view.frame.width*0.78, y: self.view.frame.height*0.9, width: 70, height: 70)
+       
+        
+        
+        //name text
+        let  name = UILabel()
+        name.text=poweredBy
+        name.font = UIFont(name: name.font.fontName, size: 13)
+        name.frame =  CGRect(x: self.view.frame.width*0.75, y: (self.view.frame.height*0.87)+60, width: self.view.frame.width/2, height: 90)
+        
+        
+       
+      
+        
+        //image back button
+        let imageView = UIImageView(image:UIImage(named: "Assets.bundle/back.png"))
+        imageView.frame =  CGRect(x: self.view.frame.width*0.03, y: 25, width: 60, height: 60)
+        let onClick = UITapGestureRecognizer(target: self, action:  #selector(self.backButtonPressed(sender:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(onClick)
+        
+        
+      
+        lblEyeBlink.font = UIFont(name: name.font.fontName, size: 24)
+        labelStatus.font = UIFont(name: name.font.fontName, size: 20)
+        
+        
+        
+       self.view.addSubview(imageView)
+        self.view.addSubview(name)
+        self.view.addSubview(logo)
 
     }
     
@@ -281,8 +310,7 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             faceBoundingBoxShape.strokeColor = UIColor.green.cgColor
             var newDrawings = [CAShapeLayer]()
             newDrawings.append(faceBoundingBoxShape)
-            
-            
+             
             let faceCalculatedX = faceBoundingBoxOnScreen.origin.x + faceBoundingBoxOnScreen.width
             let faceCalculatedY = faceBoundingBoxOnScreen.origin.y + faceBoundingBoxOnScreen.height
             
@@ -307,12 +335,15 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                             // ...
                             return
                         }
-                      
+                        
+                        
+                        
                         
                         for face in faces {
                             let frame = face.frame
                             var left : CGFloat = 0.0
                             var right : CGFloat = 0.0
+                            var smile : CGFloat = 0.0
                             if face.hasRightEyeOpenProbability {
                              
                                left = face.rightEyeOpenProbability
@@ -320,33 +351,51 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                             if face.hasLeftEyeOpenProbability {
                                 right = face.leftEyeOpenProbability
                             }
+                            if(face.hasSmilingProbability)
+                            {
+                                smile=face.smilingProbability
+                                
+                            }
                            print(self.state)
                             print(right);
                             print(left);
                             switch self.state {
                             case 0:
-                                self.lblEyeBlink.text = "blink and open your eyes";
+                                self.lblEyeBlink.text = "blink your eyes";
                                 if left > self.Open_threshold && right > self.Open_threshold{
                                     self.state = 1
                                 }
-
                                 break
                             case 1:
-                                self.lblEyeBlink.text = "blink and close your eyes";
+                                self.lblEyeBlink.text = "blink your eyes";
                                 if left < self.Close_threshold && right < self.Close_threshold{
                                     self.state = 2
                                 }
+                                
                                 break
                             case 2:
-                                self.lblEyeBlink.text = "blink and open your eyes";
+                                self.lblEyeBlink.text = "blink your eyes";
                                 if left > self.Open_threshold && right > self.Open_threshold{
 
+                                    self.state=3
+                                }
+                                break
+                            case 3:
+                                self.lblEyeBlink.text = "Smile";
+                                if  smile > self.Smile_threshold{
+
+                                    self.state=4
+                                }
+                                break
+                            case 4:
+                                if  left > self.Open_threshold && right > self.Open_threshold{
                                     self.mainBuffer = sampleBuffer
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         self.captureImageAfterBlink(sampleBuffer: self.mainBuffer!)
                                     }
                                 }
                                 break
+
                             default:
                                 print("Default case")
                             }

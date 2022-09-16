@@ -127,7 +127,7 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   Protobuf: 7504b04fffcf6662ad629694db8231f5e744327f
-  selfie_liveness: 450c19b91a724500d4ee67adebc6c627fefd0360
+  selfie_liveness: bca329c0772244ee667a04c134b23765ad6b21ce
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
