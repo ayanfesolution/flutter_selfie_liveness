@@ -18,6 +18,7 @@ A new Flutter project.
   s.resource_bundles = {
     'Assets' => [
         'Assets/*.png'
+]
    
   }
   s.dependency 'Flutter'
