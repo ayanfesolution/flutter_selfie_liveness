@@ -592,8 +592,20 @@ public final class FaceTrackerActivity extends AppCompatActivity {
                                             break;
                                         case 4:
                                             if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
+                                               state = 5;
+                                            }
+                                            break;
+                                        case 5:
+                                            if ((left < CLOSE_THRESHOLD) && (right < CLOSE_THRESHOLD)) {
+                                                // Both eyes become closed
+                                                state = 6;
+                                            }
+                                            break;
+
+                                        case 6:
+                                            if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
                                                 // Both eyes are open again
-                                                mPreview.takeImage();
+                                               mPreview.takeImage();
                                                 state = 0;
                                                 inCircle = false;
                                             }

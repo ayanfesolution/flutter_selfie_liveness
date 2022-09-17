@@ -388,11 +388,22 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                                 break
                             case 4:
                                 if  left > self.Open_threshold && right > self.Open_threshold{
+                                 self.state=5
+                                }
+                                break
+                            case 5:
+                                if left > self.Open_threshold && right > self.Open_threshold{
+                                    self.state=6
+                                }
+                                break
+                            case 6: 
+                                if left < self.Close_threshold && right < self.Close_threshold{
                                     self.mainBuffer = sampleBuffer
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         self.captureImageAfterBlink(sampleBuffer: self.mainBuffer!)
                                     }
                                 }
+                                
                                 break
 
                             default:
