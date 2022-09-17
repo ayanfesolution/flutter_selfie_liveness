@@ -33,8 +33,8 @@ class _ElatechLiveliness extends State<ElatechLiveliness> {
                   //clear listenable inorder to notify flutter
 
                   value = await SelfieLiveness.detectLiveness(
-                      poweredBy: "Powered By Raven Bank",
-                      assetLogo: "assets/logo.png",
+                      poweredBy: "",
+                      assetLogo: "assets/raven_logo_white.png",
                       msgselfieCapture:
                           "Place your face inside the oval shaped panel",
                       msgBlinkEye: "Blink your eyes to capture");

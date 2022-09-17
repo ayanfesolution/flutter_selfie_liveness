@@ -50,7 +50,8 @@ public class SelfieLivenessPlugin implements FlutterPlugin, ActivityAware, Metho
   }
 
   private void detectLiveness(MethodCall call,Result result){
-    delegate.detectLivelinesss(call, result,flutterPluginBinding);
+    FaceTrackerActivity.flutterPluginBinding=flutterPluginBinding;
+    delegate.detectLivelinesss(call, result);
   }
 
   @Override

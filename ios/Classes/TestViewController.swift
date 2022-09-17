@@ -20,9 +20,7 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private var drawings: [CAShapeLayer] = []
-     
     var faceDetector = FaceDetector.faceDetector()
-
     var lastKnownDeviceOrientation : UIDeviceOrientation?
     var videoDataOutputQueue : DispatchQueue?
     var state : Int = 0
@@ -225,15 +223,16 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
       //logo of your company
         let logoPath = Bundle.main.path(forResource: assetPath, ofType: nil)!
         let logo = UIImageView(image: UIImage(contentsOfFile: logoPath))
-        logo.frame =  CGRect(x: self.view.frame.width*0.78, y: self.view.frame.height*0.9, width: 70, height: 70)
+        logo.frame =  CGRect(x: self.view.frame.width*0.75, y: self.view.frame.height*0.88, width: 100, height: 40)
        
         
         
-        //name text
+        //powered by text
         let  name = UILabel()
+        name.textColor = .white
         name.text=poweredBy
-        name.font = UIFont(name: name.font.fontName, size: 13)
-        name.frame =  CGRect(x: self.view.frame.width*0.75, y: (self.view.frame.height*0.87)+60, width: self.view.frame.width/2, height: 90)
+        name.font = UIFont(name: name.font.fontName, size: 16)
+        name.frame =  CGRect(x: self.view.frame.width*0.75, y: (self.view.frame.height*0.88)+70, width: self.view.frame.width/2, height: 40)
         
         
        
@@ -241,15 +240,15 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         //image back button
         let imageView = UIImageView(image:UIImage(named: "Assets.bundle/back.png"))
-        imageView.frame =  CGRect(x: self.view.frame.width*0.03, y: 25, width: 60, height: 60)
+        imageView.frame =  CGRect(x: self.view.frame.width*0.03, y: 60, width: 60, height: 60)
         let onClick = UITapGestureRecognizer(target: self, action:  #selector(self.backButtonPressed(sender:)))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(onClick)
         
         
       
-        lblEyeBlink.font = UIFont(name: name.font.fontName, size: 24)
-        labelStatus.font = UIFont(name: name.font.fontName, size: 20)
+        //lblEyeBlink.font = UIFont(name: name.font.fontName, size: 24)
+        //labelStatus.font = UIFont(name: name.font.fontName, size: 20)
         
         
         

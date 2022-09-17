@@ -48,7 +48,7 @@ public class TransparentCircle extends View {
 
         stroke.setStyle(Paint.Style.STROKE);
         stroke.setColor(Color.RED);
-        stroke.setStrokeWidth(10);
+        stroke.setStrokeWidth(6);
     }
 
     @Override

@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -66,6 +67,10 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import io.flutter.FlutterInjector;
+import io.flutter.embedding.engine.loader.FlutterLoader;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+
 /**
  * Activity for the face tracker app.  This app detects faces with the rear facing camera, and draws
  * overlay graphics to indicate the position, size, and ID of each face.
@@ -77,7 +82,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
 
     private CameraSourcePreview mPreview;
     private GraphicOverlay mGraphicOverlay;
-
+    static FlutterPlugin.FlutterPluginBinding flutterPluginBinding;
     private static final int RC_HANDLE_GMS = 9001;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
@@ -95,6 +100,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     // Activity Methods
     //==============================================================================================
     private final double OPEN_THRESHOLD = 0.85;
+    private final double SMILE_THRESHOLD = 0.85;
     private final double CLOSE_THRESHOLD = 0.15;
     private int state = 0;
 
@@ -149,7 +155,18 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         //logo.setImageURI(FlutterAssetImages.findURI("assets/footer.png"));
 
 
+        String assetPath = flutterPluginBinding
+                .getFlutterAssets()
+                .getAssetFilePathByName(logoPath);
+        try {
+            InputStream is = flutterPluginBinding.getApplicationContext().getAssets().open(assetPath);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            logo.setImageBitmap(bitmap);
 
+            is.close();
+        } catch (IOException e) {
+            Log.e("plugin1", e.getMessage());
+        }
 
 
 
@@ -536,6 +553,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
 
                                     float left = mFace.getIsLeftEyeOpenProbability();
                                     float right = mFace.getIsRightEyeOpenProbability();
+                                     float smile=    mFace.getIsSmilingProbability();
                                     if ((left == Face.UNCOMPUTED_PROBABILITY) ||
                                             (right == Face.UNCOMPUTED_PROBABILITY)) {
                                         // Toast.makeText(FaceTrackerActivity.this, "Eyes are not detected", Toast.LENGTH_SHORT).show();
@@ -560,6 +578,19 @@ public final class FaceTrackerActivity extends AppCompatActivity {
                                             break;
 
                                         case 2:
+                                            if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
+                                                // Both eyes are open again
+                                                state = 3;
+                                                txtBlinkEye.setText("Smile");
+                                            }
+                                            break;
+                                        case 3:
+                                            if (smile > SMILE_THRESHOLD) {
+                                                // Both eyes are open again
+                                                state = 4;
+                                            }
+                                            break;
+                                        case 4:
                                             if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
                                                 // Both eyes are open again
                                                 mPreview.takeImage();

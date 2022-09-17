@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import io.flutter.FlutterInjector;
 import io.flutter.embedding.android.FlutterActivity;
@@ -35,7 +37,7 @@ public class SelfieDelegate  {
         methodCall = null;
         pendingResult = null;
     }
-    public void detectLivelinesss(MethodCall methodCall, MethodChannel.Result result, FlutterPlugin.FlutterPluginBinding flutterPluginBinding) {
+    public void detectLivelinesss(MethodCall methodCall, MethodChannel.Result result) {
         if (!setPendingMethodCallAndResult(methodCall, result)) {
             finishWithAlreadyActiveError(result);
             return;
@@ -48,11 +50,6 @@ public class SelfieDelegate  {
 
         //get asset path
         String logo = methodCall.argument("assetPath");
-        logo=   flutterPluginBinding.getFlutterAssets().getAssetFilePathByName(logo);
-        File file= new File(logo);
-        if(file.exists()){
-            System.out.println("good");
-        }
         String msgselfieCapture = methodCall.argument("msgselfieCapture");
         String poweredBy = methodCall.argument("poweredBy");
         String msgBlinkEye = methodCall.argument("msgBlinkEye");

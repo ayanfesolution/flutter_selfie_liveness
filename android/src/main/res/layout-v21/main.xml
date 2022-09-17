@@ -86,8 +86,8 @@
       android:visibility="invisible"/>
   <ImageView
       android:id="@+id/imgClose"
-      android:layout_width="70dp"
-      android:layout_height="70dp"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
       android:src="@drawable/back"
       android:layout_alignParentLeft="true"
       android:layout_alignParentTop="true"
@@ -95,19 +95,24 @@
   <LinearLayout
       android:orientation="vertical"
       android:layout_width="wrap_content"
-      android:layout_height="120dp"
+      android:gravity="center"
+      android:layout_gravity="center"
+      android:layout_height="wrap_content"
       android:layout_marginRight="10dp"
       android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true">
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_height="30dp"
+        android:scaleType="centerInside"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:textStyle="italic"
         android:textColor="#ffffff"
         android:text="Powered By Raven"
