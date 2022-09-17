@@ -1,6 +1,7 @@
 package com.selfieliveness.selfie_liveness;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,18 +22,23 @@ public class SelfieLivenessPlugin implements FlutterPlugin, ActivityAware, Metho
 
   ActivityPluginBinding binding;
   private SelfieDelegate delegate;
+  FlutterPluginBinding flutterPluginBinding;
   private MethodChannel channel;
 
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "elatech_liveliness_plugin");
+   this.flutterPluginBinding=flutterPluginBinding;
     channel.setMethodCallHandler(this);
+
+
   }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("detectliveliness")) {
+
       detectLiveness(call,result);
     }
   }
@@ -44,7 +50,7 @@ public class SelfieLivenessPlugin implements FlutterPlugin, ActivityAware, Metho
   }
 
   private void detectLiveness(MethodCall call,Result result){
-    delegate.detectLivelinesss(call, result);
+    delegate.detectLivelinesss(call, result,flutterPluginBinding);
   }
 
   @Override

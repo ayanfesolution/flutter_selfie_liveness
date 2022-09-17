@@ -23,7 +23,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
@@ -57,6 +59,7 @@ import com.selfieliveness.selfie_liveness.ui.GraphicOverlay;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import static android.Manifest.permission.CAMERA;
@@ -97,9 +100,11 @@ public final class FaceTrackerActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 200;
     ImageView imgClose;
+    ImageView logo;
+    TextView poweredBy;
     TextView txtBlinkEye;
     TextView txtMsg;
-    String msgselfieCapture,msgBlinkEye;
+    String msgselfieCapture,msgBlinkEye,poweredByText,logoPath;
     Intent intent;
 
     /**
@@ -122,18 +127,32 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         intent = getIntent();
         msgselfieCapture = intent.getStringExtra("msgselfieCapture");
         msgBlinkEye = intent.getStringExtra("msgBlinkEye");
+        logoPath = intent.getStringExtra("logo");
+        poweredByText = intent.getStringExtra("poweredBy");
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay) findViewById(R.id.faceOverlay);
         imgOverlay = (ImageView) findViewById(R.id.imgOverlay);
         imgOverlayNew = (ImageView) findViewById(R.id. imgNew);
+
         tcFaceDetectionOverlay = (TransparentCircle) findViewById(R.id.tcFaceDetectionOverlay);
         imgClose = (ImageView) findViewById(R.id.imgClose);
+        logo = (ImageView) findViewById(R.id.logo);
         txtMsg = (TextView) findViewById(R.id.txtMsg);
+        poweredBy = (TextView) findViewById(R.id.poweredBy);
         txtBlinkEye = (TextView) findViewById(R.id.txtBlinkEye);
 
         txtMsg.setText(msgselfieCapture);
         txtBlinkEye.setText(msgBlinkEye);
+        poweredBy.setText(poweredByText);
+
+        //logo.setImageURI(FlutterAssetImages.findURI("assets/footer.png"));
+
+
+
+
+
+
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override

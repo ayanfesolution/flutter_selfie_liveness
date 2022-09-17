@@ -5,7 +5,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.io.File;
+
+import io.flutter.FlutterInjector;
 import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.loader.FlutterLoader;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
@@ -30,16 +35,31 @@ public class SelfieDelegate  {
         methodCall = null;
         pendingResult = null;
     }
-    public void detectLivelinesss(MethodCall methodCall, MethodChannel.Result result) {
+    public void detectLivelinesss(MethodCall methodCall, MethodChannel.Result result, FlutterPlugin.FlutterPluginBinding flutterPluginBinding) {
         if (!setPendingMethodCallAndResult(methodCall, result)) {
             finishWithAlreadyActiveError(result);
             return;
         }
+
+
         this.pendingResult = result;
+
+
+
+        //get asset path
+        String logo = methodCall.argument("assetPath");
+        logo=   flutterPluginBinding.getFlutterAssets().getAssetFilePathByName(logo);
+        File file= new File(logo);
+        if(file.exists()){
+            System.out.println("good");
+        }
         String msgselfieCapture = methodCall.argument("msgselfieCapture");
+        String poweredBy = methodCall.argument("poweredBy");
         String msgBlinkEye = methodCall.argument("msgBlinkEye");
         Intent intent = new Intent(activity, FaceTrackerActivity.class);
         intent.putExtra("msgselfieCapture", msgselfieCapture);
+        intent.putExtra("logo",logo);
+        intent.putExtra("poweredBy",poweredBy);
         intent.putExtra("msgBlinkEye", msgBlinkEye);
         activity.startActivityForResult(intent, 2899);
     }
