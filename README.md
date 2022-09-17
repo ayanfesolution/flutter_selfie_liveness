@@ -16,10 +16,12 @@ import 'package:selfie_liveness/selfie_liveness.dart';
 
 
 //and call and await the function to return imagePath of the captured user
-SelfieLiveness.detectLiveness(
+  SelfieLiveness.detectLiveness(
+                      poweredBy: "",
+                      assetLogo: "assets/raven_logo_white.png",
                       msgselfieCapture:
                           "Place your face inside the oval shaped panel",
-                      msgBlinkEye: "Blink your eyes to capture");
+                      msgBlinkEye: "Blink your eyes to capture");;
 
  
 ```
@@ -71,7 +73,7 @@ class ElatechLiveliness extends StatefulWidget {
 
 class _ElatechLiveliness extends State<ElatechLiveliness> {
   String value = "";
-
+//asset image required
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -86,10 +88,11 @@ class _ElatechLiveliness extends State<ElatechLiveliness> {
             ElevatedButton(
                 onPressed: () async {
                   value = await SelfieLiveness.detectLiveness(
+                      poweredBy: "",
+                      assetLogo: "assets/raven_logo_white.png",
                       msgselfieCapture:
                           "Place your face inside the oval shaped panel",
                       msgBlinkEye: "Blink your eyes to capture");
-                  await FileImage(File(value)).evict();
                   setState(() {});
                 },
                 child: const Text("Detect Liveness"))
