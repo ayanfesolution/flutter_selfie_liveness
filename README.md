@@ -17,11 +17,11 @@ import 'package:selfie_liveness/selfie_liveness.dart';
 
 //and call and await the function to return imagePath of the captured user
   SelfieLiveness.detectLiveness(
-                      poweredBy: "",
-                      assetLogo: "assets/raven_logo_white.png",
-                      msgselfieCapture:
-                          "Place your face inside the oval shaped panel",
-                      msgBlinkEye: "Blink your eyes to capture");;
+                    poweredBy: "",
+                    assetLogo: "assets/raven_logo_white.png",
+                    compressQualityandroid: 88,
+                    compressQualityiOS: 88,
+                  )
 
  
 ```
@@ -87,12 +87,12 @@ class _ElatechLiveliness extends State<ElatechLiveliness> {
             Text("Press The Button To Take Photo"),
             ElevatedButton(
                 onPressed: () async {
-                  value = await SelfieLiveness.detectLiveness(
-                      poweredBy: "",
-                      assetLogo: "assets/raven_logo_white.png",
-                      msgselfieCapture:
-                          "Place your face inside the oval shaped panel",
-                      msgBlinkEye: "Blink your eyes to capture");
+                   value = await SelfieLiveness.detectLiveness(
+                    poweredBy: "",
+                    assetLogo: "assets/raven_logo_white.png",
+                    compressQualityandroid: 88,
+                    compressQualityiOS: 88,
+                  );
                   setState(() {});
                 },
                 child: const Text("Detect Liveness"))

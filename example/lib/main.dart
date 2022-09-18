@@ -30,14 +30,15 @@ class _ElatechLiveliness extends State<ElatechLiveliness> {
             const Text("Press The Button To Take Photo"),
             ElevatedButton(
                 onPressed: () async {
-                  //clear listenable inorder to notify flutter
-
                   value = await SelfieLiveness.detectLiveness(
-                      poweredBy: "",
-                      assetLogo: "assets/raven_logo_white.png",
-                      msgselfieCapture:
-                          "Place your face inside the oval shaped panel",
-                      msgBlinkEye: "Blink your eyes to capture");
+                    poweredBy: "",
+                    assetLogo: "assets/raven_logo_white.png",
+                    compressQualityandroid: 88,
+                    compressQualityiOS: 88,
+                  );
+                  if (value.isEmpty) {
+                    return;
+                  }
                   await FileImage(File(value)).evict();
                   setState(() {});
                 },

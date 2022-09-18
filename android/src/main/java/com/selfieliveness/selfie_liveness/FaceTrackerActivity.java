@@ -581,28 +581,23 @@ public final class FaceTrackerActivity extends AppCompatActivity {
                                             if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
                                                 // Both eyes are open again
                                                 state = 3;
-                                                txtBlinkEye.setText("Smile");
+                                                txtBlinkEye.setText("Smile And Blink");
                                             }
                                             break;
                                         case 3:
                                             if (smile > SMILE_THRESHOLD) {
                                                 // Both eyes are open again
                                                 state = 4;
-                                            }
+                                            } 
                                             break;
                                         case 4:
-                                            if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
-                                               state = 5;
-                                            }
-                                            break;
-                                        case 5:
                                             if ((left < CLOSE_THRESHOLD) && (right < CLOSE_THRESHOLD)) {
                                                 // Both eyes become closed
-                                                state = 6;
+                                                state = 5;
                                             }
                                             break;
 
-                                        case 6:
+                                        case 5:
                                             if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
                                                 // Both eyes are open again
                                                mPreview.takeImage();
