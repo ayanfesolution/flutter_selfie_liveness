@@ -19,7 +19,7 @@ class SelfieLiveness {
     }
     var response = await _channel.invokeMethod("detectliveliness", {
           "msgselfieCapture": "Place your face inside the oval shaped panel",
-          "msgBlinkEye": "",
+          "msgBlinkEye": "Blink Your Eyes",
           "assetPath": assetLogo,
           "poweredBy": poweredBy
         }) ??
