@@ -67,8 +67,8 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             gradient.mask = shape
             self.overlayCircle.layer.addSublayer(shape)
              
-                    self.labelStatus.frame = CGRect(x: 30, y:  70, width: self.view.frame.width - 60, height: 60)
-                    self.lblEyeBlink.frame = CGRect(x: 30, y:  125, width: self.view.frame.width - 60, height: 30)
+                    self.labelStatus.frame = CGRect(x: 30, y:  85, width: self.view.frame.width - 60, height: 60)
+                    self.lblEyeBlink.frame = CGRect(x: 30, y:  155, width: self.view.frame.width - 60, height: 30)
                     
             self.lblEyeBlink.text = self.blinkMessageText //"Blink your eyes"
              self.labelStatus.text = self.captureMessageText
@@ -223,7 +223,7 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
       //logo of your company
         let logoPath = Bundle.main.path(forResource: assetPath, ofType: nil)!
         let logo = UIImageView(image: UIImage(contentsOfFile: logoPath))
-        logo.frame =  CGRect(x: self.view.frame.width*0.75, y: self.view.frame.height*0.88, width: 100, height: 40)
+        logo.frame =  CGRect(x: self.view.frame.width-120, y: self.view.frame.height*0.9, width: 100, height: 40)
        
         
         
@@ -240,7 +240,7 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         //image back button
         let imageView = UIImageView(image:UIImage(named: "Assets.bundle/back.png"))
-        imageView.frame =  CGRect(x: self.view.frame.width*0.03, y: 20, width: 55, height: 55)
+        imageView.frame =  CGRect(x: self.view.frame.width*0.032, y: 44, width: 45, height: 45)
         let onClick = UITapGestureRecognizer(target: self, action:  #selector(self.backButtonPressed(sender:)))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(onClick)
@@ -318,7 +318,7 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             
             self.lblEyeBlink.isHidden = false
              
-            if (overlayCalculatedX - faceCalculatedX) < 130 && (overlayCalculatedX - faceCalculatedX) > 0 && (overlayCalculatedY - faceCalculatedY) > 0 && (overlayCalculatedY - faceCalculatedY) < 130 {
+            if (overlayCalculatedX - faceCalculatedX) < 90 && (overlayCalculatedX - faceCalculatedX) > 0 && (overlayCalculatedY - faceCalculatedY) > 0 && (overlayCalculatedY - faceCalculatedY) < 90 {
                 DispatchQueue.main.async {
                     self.lblEyeBlink.isHidden = false
                     self.shape.strokeColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).cgColor
