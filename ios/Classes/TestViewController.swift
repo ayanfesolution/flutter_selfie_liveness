@@ -360,20 +360,20 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                             print(left);
                             switch self.state {
                             case 0:
-                                self.lblEyeBlink.text = "Blink Your Eyes";
+                                self.lblEyeBlink.text = "Blink 3 Times";
                                 if left > self.Open_threshold && right > self.Open_threshold{
                                     self.state = 1
                                 }
                                 break
                             case 1:
-                                self.lblEyeBlink.text = "Blink Your Eyes";
+                                self.lblEyeBlink.text = "Blink 3 Times";
                                 if left < self.Close_threshold && right < self.Close_threshold{
                                     self.state = 2
                                 }
                                 
                                 break
                             case 2:
-                                self.lblEyeBlink.text = "Blink Your Eyes";
+                                self.lblEyeBlink.text = "Blink 3 Times";
                                 if left > self.Open_threshold && right > self.Open_threshold{
 
                                     self.state=3
@@ -392,12 +392,13 @@ class TestViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                                 }
                                 break
                             case 5:
-                                if left > self.Open_threshold && right > self.Open_threshold {
+                                if  smile > self.Smile_threshold && left > self.Open_threshold && right > self.Open_threshold {
                                     self.mainBuffer = sampleBuffer
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         self.captureImageAfterBlink(sampleBuffer: self.mainBuffer!)
                                     }
                                 }
+                                
                                 
                                 break
 

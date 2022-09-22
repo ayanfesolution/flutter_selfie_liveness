@@ -19,7 +19,9 @@ class SelfieLiveness {
     }
     var response = await _channel.invokeMethod("detectliveliness", {
           "msgselfieCapture": "Place your face inside the oval shaped panel",
-          "msgBlinkEye": "Blink Your Eyes",
+          "msgBlinkEye": defaultTargetPlatform == TargetPlatform.iOS
+              ? "Blink 3 Times"
+              : "Blink Your Eyes",
           "assetPath": assetLogo,
           "poweredBy": poweredBy
         }) ??

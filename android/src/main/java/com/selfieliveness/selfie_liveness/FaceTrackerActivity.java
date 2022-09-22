@@ -598,7 +598,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
                                             break;
 
                                         case 5:
-                                            if ((left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
+                                            if ((smile > SMILE_THRESHOLD)&&(left > OPEN_THRESHOLD) && (right > OPEN_THRESHOLD)) {
                                                 // Both eyes are open again
                                                mPreview.takeImage();
                                                 state = 0;
