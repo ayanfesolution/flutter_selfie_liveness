@@ -24,7 +24,7 @@ A new Flutter project.
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
   s.ios.dependency 'GoogleMLKit/FaceDetection'
-  s.ios.dependency 'GoogleMobileVision/MVDataOutput'
+  #s.ios.dependency 'GoogleMobileVision/MVDataOutput'
   s.ios.dependency 'GoogleMLKit/TextRecognition'
   s.static_framework = true
 

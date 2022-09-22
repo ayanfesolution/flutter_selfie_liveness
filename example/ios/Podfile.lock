@@ -17,13 +17,6 @@ PODS:
   - GoogleMLKit/TextRecognition (3.2.0):
     - GoogleMLKit/MLKitCore
     - MLKitTextRecognition (~> 1.4.0-beta6)
-  - GoogleMobileVision/Detector (1.6.0):
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - GTMSessionFetcher/Core (~> 1.1)
-    - Protobuf (~> 3.1)
-  - GoogleMobileVision/MVDataOutput (1.6.0):
-    - GoogleMobileVision/Detector (~> 1.6)
   - GoogleToolboxForMac/DebugUtils (2.3.2):
     - GoogleToolboxForMac/Defines (= 2.3.2)
   - GoogleToolboxForMac/Defines (2.3.2)
@@ -103,7 +96,6 @@ PODS:
     - Flutter
     - GoogleMLKit/FaceDetection
     - GoogleMLKit/TextRecognition
-    - GoogleMobileVision/MVDataOutput
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -115,7 +107,6 @@ SPEC REPOS:
   trunk:
     - GoogleDataTransport
     - GoogleMLKit
-    - GoogleMobileVision
     - GoogleToolboxForMac
     - GoogleUtilities
     - GoogleUtilitiesComponents
@@ -149,7 +140,6 @@ SPEC CHECKSUMS:
   flutter_image_compress: 5a5e9aee05b6553048b8df1c3bc456d0afaac433
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleMLKit: 0017a6a8372e1a182139b9def4d89be5d87ca5a7
-  GoogleMobileVision: 31cfb4319fd0c03d80105680abd9eae9da5e3b47
   GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
@@ -168,7 +158,7 @@ SPEC CHECKSUMS:
   Protobuf: 7504b04fffcf6662ad629694db8231f5e744327f
   SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
-  selfie_liveness: bca329c0772244ee667a04c134b23765ad6b21ce
+  selfie_liveness: 43d2c39cd621e571230d5c78ba584a5873f8a4cb
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
