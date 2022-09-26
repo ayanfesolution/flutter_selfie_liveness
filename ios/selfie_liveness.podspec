@@ -22,7 +22,7 @@ A new Flutter project.
    
   }
   s.dependency 'Flutter'
-  s.platform = :ios, '13.0'
+  s.platform = :ios, '10.0'
   s.ios.dependency 'GoogleMLKit/FaceDetection'
   #s.ios.dependency 'GoogleMobileVision/MVDataOutput'
   s.ios.dependency 'GoogleMLKit/TextRecognition'
