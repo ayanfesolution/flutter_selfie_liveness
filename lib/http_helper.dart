@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import 'package:http/http.dart' as http;
+import 'package:selfie_liveness/load_env.dart';
 
 class HttpHeler {
   static String apiEndpoint = 'https://posapi.getravenbank.com/v1/app';
@@ -30,7 +31,7 @@ class HttpHeler {
       Map<String, String> map = {
         'content-type': 'application/json',
         'accept': 'application/json',
-        'Authorization': 'Bearer '
+        'Authorization': 'Bearer ${(await LoadEnv.getEnv())['AUTH_TOKEN']}'
       };
 
       // Find the mime type of the selected file by looking at the header bytes of the file
@@ -48,11 +49,13 @@ class HttpHeler {
       // Which creates some problem at the server side to manage
       // or verify the file extension
       // imageUploadRequest.fields['ext'] = mimeTypeData[1];
+
       imageUploadRequest.fields['type'] = 'bvn';
       imageUploadRequest.fields['token'] = typeToken;
       imageUploadRequest.files.add(file);
       imageUploadRequest.headers['content-type'] = 'application/json';
-      imageUploadRequest.headers['Authorization'] = 'Bearer ';
+      imageUploadRequest.headers['Authorization'] =
+          'Bearer ${(await LoadEnv.getEnv())['AUTH_TOKEN']}';
 
       final streamedResponse = await imageUploadRequest.send();
       final response = await http.Response.fromStream(streamedResponse);
