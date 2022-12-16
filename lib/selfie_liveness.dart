@@ -1,12 +1,65 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:selfie_liveness/http_helper.dart';
+import 'package:selfie_liveness/widget/progress_dialog.dart';
 
 class SelfieLiveness {
   static const MethodChannel _channel =
       MethodChannel("elatech_liveliness_plugin");
+
+  static Future<Map> performFacialVerification(
+      {required BuildContext context,
+      required String bvn,
+      required String appToken,
+      required String poweredBy,
+      required String assetLogo,
+      required int compressQualityiOS,
+      required int compressQualityandroid}) async {
+    try {
+      String path = await detectLiveness(
+          poweredBy: poweredBy,
+          assetLogo: assetLogo,
+          compressQualityiOS: compressQualityiOS,
+          compressQualityandroid: compressQualityandroid);
+      if (path.isEmpty) {
+        throw Exception("path is empty. user didn't take photo");
+      }
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) => const ProgressDialog(
+                status: 'Verifying...',
+              ));
+
+      var response = await HttpHeler.uploadImage(
+          path,
+          'https://integrations.getravenbank.com/v1/image/match',
+          'image',
+          bvn.trim());
+      if (response['status'] != 'success') {
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+        return response;
+      }
+
+      Map map = {
+        'token': appToken,
+        'fname': response['data']['first_name'],
+        'lname': response['data']['last_name'],
+        'bvn': bvn.trim(),
+      };
+      var responseConfirm = await HttpHeler.postRequest(map, 'update_business');
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+      return responseConfirm;
+    } catch (ex) {
+      throw Exception();
+    }
+  }
 
   static Future<String> detectLiveness(
       {required String poweredBy,
@@ -15,7 +68,7 @@ class SelfieLiveness {
       required int compressQualityandroid}) async {
     if (defaultTargetPlatform != TargetPlatform.android &&
         defaultTargetPlatform != TargetPlatform.iOS) {
-      return "platform not supported";
+      throw Exception('platform not supported');
     }
     var response = await _channel.invokeMethod("detectliveliness", {
           "msgselfieCapture": "Place your face inside the oval shaped panel",
