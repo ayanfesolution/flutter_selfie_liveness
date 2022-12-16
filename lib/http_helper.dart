@@ -30,8 +30,7 @@ class HttpHeler {
       Map<String, String> map = {
         'content-type': 'application/json',
         'accept': 'application/json',
-        'Authorization':
-            'Bearer RVSEC-8bb756a159b787007fa50b556b45d11d0b49c0c0c0a7b47b3364fa7d094009d2b404a106a71103b9aecb33f73b82f5be-1662632092469'
+        'Authorization': 'Bearer '
       };
 
       // Find the mime type of the selected file by looking at the header bytes of the file
@@ -53,8 +52,7 @@ class HttpHeler {
       imageUploadRequest.fields['token'] = typeToken;
       imageUploadRequest.files.add(file);
       imageUploadRequest.headers['content-type'] = 'application/json';
-      imageUploadRequest.headers['Authorization'] =
-          'Bearer RVSEC-8bb756a159b787007fa50b556b45d11d0b49c0c0c0a7b47b3364fa7d094009d2b404a106a71103b9aecb33f73b82f5be-1662632092469';
+      imageUploadRequest.headers['Authorization'] = 'Bearer ';
 
       final streamedResponse = await imageUploadRequest.send();
       final response = await http.Response.fromStream(streamedResponse);
