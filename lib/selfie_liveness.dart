@@ -18,6 +18,7 @@ class SelfieLiveness {
       required String poweredBy,
       required String assetLogo,
       required int compressQualityiOS,
+      required String bearToken,
       required int compressQualityandroid}) async {
     try {
       String path = await detectLiveness(
@@ -36,10 +37,12 @@ class SelfieLiveness {
               ));
 
       var response = await HttpHeler.uploadImage(
-          path,
-          'https://integrations.getravenbank.com/v1/image/match',
-          'image',
-          bvn.trim());
+        path,
+        'https://integrations.getravenbank.com/v1/image/match',
+        'image',
+        bvn.trim(),
+        bearToken,
+      );
       if (response['status'] != 'success') {
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
