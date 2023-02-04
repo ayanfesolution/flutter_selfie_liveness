@@ -231,7 +231,12 @@ public final class FaceTrackerActivity extends AppCompatActivity {
                         && grantResults[0] + grantResults[1] + grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted :)
                     createCameraSource();
-                } else {
+                }
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED  && android.os.Build.VERSION.SDK_INT>28){
+                    createCameraSource();
+                    return;
+                }
+                else {
 //                    if (ActivityCompat.shouldShowRequestPermissionRationale(FaceTrackerActivity.this, CAMERA) ||
 //                            ActivityCompat.shouldShowRequestPermissionRationale(FaceTrackerActivity.this, WRITE_EXTERNAL_STORAGE) ||
 //                            ActivityCompat.shouldShowRequestPermissionRationale(FaceTrackerActivity.this, READ_EXTERNAL_STORAGE)) {
@@ -282,7 +287,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         } else {
             //requestPermission();
             if (!checkPermission()) {
-                showDialogPermission();
+                requestPermission();
             } else {
                 createCameraSource();
             }
