@@ -125,7 +125,7 @@ public class SelfieLivenessPlugin implements FlutterPlugin, ActivityAware, Metho
     if(requestCode==PERMISSION_REQUEST_CODE&&grantResults.length>0){
       for(int x=0; x<grantResults.length; x++){
         if(grantResults[x]!=PackageManager.PERMISSION_GRANTED){
-          Toast.makeText(binding.getActivity().getApplicationContext(),"Permission Not Yet Granted.",Toast.LENGTH_LONG).show();
+         // Toast.makeText(binding.getActivity().getApplicationContext(),"Permission Not Yet Granted.",Toast.LENGTH_LONG).show();
          return false;
         }
       }
