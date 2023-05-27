@@ -3,7 +3,6 @@ import AVFoundation
 import Vision
 import MLKitVision
 import MLKitCommon
-import MLCompute
 import MLKitFaceDetection
  
 
