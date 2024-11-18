@@ -101,7 +101,7 @@ class SelfieLiveness {
 
   //comopression
 
-  static Future<File> _compressImage(
+  static Future<XFile> _compressImage(
       {required File file,
       required int compressQualityandroid,
       required int compressQualityiOS}) async {
